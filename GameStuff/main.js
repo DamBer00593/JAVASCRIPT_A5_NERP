@@ -8,43 +8,42 @@ const gameController = {
     letter : "",
     lives : 5,
     wordList : [],
-    fileData : {},
     buildGame : function(){
         //This function is run at the start of the program to begin a game
-        this.setGetWordList("countries");
-        //this.setCategory("countries");
+        this.setGetWordList();
+        this.setCategory("countries");
         this.setWord();
-        
         this.buildLetterButtons();
         this.makeButtonEvents();
+        console.log()
         this.makeBlanks();
         this.makeWord();
     },
-    setGetWordList : function(cat){
+    setGetWordList : function(){
         let xhr = new XMLHttpRequest;
         let url = "vocabularies.json"
         xhr.onreadystatechange = function(){
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200 ){
-                this.fileData = JSON.parse(xhr.responseText)
-                console.log(this.fileData)
+                let temp = JSON.parse(xhr.responseText)
+                gameController.fileData = temp.vocabularies;
             }
                 
         }
         xhr.open("GET", url, false);
         xhr.send();
         //Stuff from setCategory()
-        console.log (this.fileData)
-        for (let i=0; i< this.fileData.vocabularies.length; i++){
-            if (this.fileData.vocabularies[i].category === cat)
-                this.wordList = this.fileData.vocabularies[i].words;
-        }
+        
     },
     setCategory : function(cat){
         //moved temporarily to setGetWordList()
-        
+        console.log (this.fileData)
+        for (let i=0; i< this.fileData.length; i++){
+            if (this.fileData[i].categoryName === cat)
+                this.wordList = this.fileData[i].words;
+        }
     },
     setWord : function(){
-        this.word = wordList[Math.floor(Math.random * this.wordList.length)]
+        this.word = this.wordList[Math.floor(Math.random() * this.wordList.length)]
     },
     setLetter : function(letter){
         this.letter = letter;
@@ -86,8 +85,9 @@ const gameController = {
         let wordSpace = document.querySelector("#letters");
         let htmlString = "";
         for(let i = 0; i<this.blanks.length; i++)
-            htmlString += "<h2>" + this.blanks[i] + "</h2>";
+            htmlString += "<div><h2>" + this.blanks[i] + "</h2></div>";
         wordSpace.innerHTML = htmlString;  
+        document.querySelector("style").innerHTML = "#letters{grid-template-columns: repeat("+(this.blanks.length) + ", 1fr);}"
     }, 
     gameState : function(){
         if (!(this.blanks.includes("_"))) this.winGame();   
