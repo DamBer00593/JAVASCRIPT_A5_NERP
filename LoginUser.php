@@ -27,9 +27,9 @@ if ($result->num_rows > 0) {
         
         $verify = password_verify($password,$row["Password"]);
         if (password_verify($UserPassword,$row["Password"])){
-        echo ("ACC_CONN_TRUE" . "\n");
+        echo ("1");
         }else{
-        echo ("ACC_CONN_FALSE". "\n");
+        echo ("2");
         }
 
         
@@ -37,8 +37,9 @@ if ($result->num_rows > 0) {
 } 
 else 
 {
-    echo "ACC_ERR";
+    echo "3";
 }
+
 
 $conn->close();
 
