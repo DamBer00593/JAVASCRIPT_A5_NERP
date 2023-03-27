@@ -20,7 +20,6 @@ const gameController = {
         this.setWord();
         this.buildLetterButtons();
         this.makeButtonEvents();
-        console.log()
         this.makeBlanks();
         this.makeWord();
     },
@@ -124,13 +123,12 @@ const serverStuff = {
         xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200){
-                this.dataReturned = xhr.responseText;                     
+                serverStuff.dataReturned = xhr.responseText;                     
             }
         }
-        xhr.open("GET", url+"?"+args, true);
+        xhr.open("GET", url+"?"+args, false);
         xhr.send();        
     }
-
 }
 
 ///
