@@ -26,20 +26,19 @@ if ($result->num_rows > 0) {
         //echo "bundle: " . $row["Password"]. ", " . $row["UserID"]. ", " . $row["UserName"]. "</br>";
         
         
-        echo ("ACC_ALREADY_EXISTS" . "\n");
+        echo ("3" . "\n");
 
         
     }
 } 
 else 
 {
-    echo ("CREATING_ACC". "\n");
+    echo ("1". "\n");
     
     $sql = "INSERT INTO `UserData`(`UserName`, `Password`) VALUES (\"$UserName\",\"".password_hash($UserPassword,PASSWORD_DEFAULT)."\")";
     $result = $conn->query($sql);
     if($result->num_rows > 0){
         while($row = $result->fetch_assoc()){
-            echo $row;
         }
     }
 }
