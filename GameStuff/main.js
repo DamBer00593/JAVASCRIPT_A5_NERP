@@ -20,6 +20,7 @@ const gameController = {
         this.setWord();
         this.buildLetterButtons();
         this.makeButtonEvents();
+        console.log()
         this.makeBlanks();
         this.makeWord();
     },
