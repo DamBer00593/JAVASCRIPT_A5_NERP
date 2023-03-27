@@ -79,3 +79,8 @@ a{
     grid-column: span 2;
     text-align: center;
 }
+.header{
+    background-color: lightblue;
+    display: grid;
+    grid-template-columns: 1fr;
+}
