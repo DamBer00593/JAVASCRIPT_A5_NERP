@@ -18,7 +18,18 @@ const serverStuff = {
         } else{
             serverStuff.sendData("createUser.php",[signupUser,SignupPass]);
             console.log(serverStuff.dataReturned)
+            switch (pageEvents.logState){
+                case 0:
+                    break;
+                case 1:
+                    pageEvents.userName = signupUser;
+                    break;
+                case 3:
+                    alert(user + " already exists");
+                    break;
+            }
         }
+        
     },
     LogintoAccount : function(){
         let user = document.querySelector("#username_Field_Login").value;
@@ -27,7 +38,22 @@ const serverStuff = {
         
         let list = [user,pass]
         serverStuff.sendData("test.php",list)
-        console.log(serverStuff.dataReturned)
+        pageEvents.logState = Number(serverStuff.dataReturned);
+
+        switch (pageEvents.logState){
+            case 0:
+                break;
+            case 1:
+                pageEvents.userName = user;
+                break;
+            case 2:
+                alert("Password Incorrect");
+                break;
+            case 3:
+                alert(user + " does not exist");
+                break;
+        }
+
     },
     sendData : function(url, lst){
         let args = "";
@@ -51,6 +77,18 @@ const serverStuff = {
 }
 
 const pageEvents = {
+    userName : "",
+    logState : 0,
+    // State 0 guest
+
+    // State 1 Success
+    // State 2 Passowrd Error
+    // State 3 Does not exist
+
+    // State 1 Success
+    // State 2 Passwords dont match
+    // State 3 Accounts exists
+
     loginState : function(){
         document.querySelector("#Login").classList.remove("hidden")
     },
@@ -67,5 +105,6 @@ const pageEvents = {
         let lb = document.querySelector("#leaderboard");
         lb.innerHTML = "<table><tr><th>Name</th><th>Score</th></tr>";
         lb.innerHTML += this.dataReturned + "</table>";
-    },
+    }
 }
+    
