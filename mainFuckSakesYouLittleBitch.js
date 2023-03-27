@@ -37,7 +37,7 @@ const serverStuff = {
         let pass = document.querySelector("#password_Field_Login").value;
         
         let list = [user,pass]
-        serverStuff.sendData("test.php",list)
+        serverStuff.sendData("LoginUser.php",list)
         pageEvents.logState = Number(serverStuff.dataReturned);
 
         switch (pageEvents.logState){
