@@ -1,6 +1,11 @@
 window.onload = function(){
     gameController.buildGame();
 }
+
+///
+///
+///
+
 const gameController = {
     //This is the game controller object it manages most of the game
     blanks : [],
@@ -31,11 +36,8 @@ const gameController = {
         }
         xhr.open("GET", url, false);
         xhr.send();
-        //Stuff from setCategory()
-        
     },
     setCategory : function(cat){
-        //moved temporarily to setGetWordList()
         console.log (this.fileData)
         for (let i=0; i< this.fileData.length; i++){
             if (this.fileData[i].categoryName === cat)
@@ -106,6 +108,10 @@ const gameController = {
     }
 }
 
+///
+///
+///
+
 const serverStuff = {
     dataReturned:"",
     sendData : function(url, lst){
@@ -123,29 +129,13 @@ const serverStuff = {
         }
         xhr.open("GET", url+"?"+args, true);
         xhr.send();        
-    },
-    updateLeaderboard : function(){
-        let lb = document.querySelector("#leaderboard");
-        lb.innerHTML = "<table><tr><th>Name</th><th>Score</th></tr>";
-        lb.innerHTML += this.dataReturned + "</table>";
-    },
-    SignupUseraccount : function(){
-        console.log("I Clicked")
-    //username_Field_SignUp     
-    //password_Field_SignUp
-    //Conf_password_Field_SignUp
-    let signupUser = document.querySelector("#username_Field_SignUp").value
-    let SignupPass = document.querySelector("#password_Field_SignUp").value
-    let SignupPassConf = document.querySelector("#Conf_password_Field_SignUp").value
-    if ((SignupPass && SignupPassConf) == false){
-        alert("Passwords Dont Match");
-    } else{
-        sendData("createUser.php",[signupUser,SignupPass]);
     }
-    }
-
 
 }
+
+///
+///
+///
 
 const pageEvents = {
     SignupSwitchState : function(){
@@ -153,5 +143,24 @@ const pageEvents = {
     document.querySelector("#Login").classList.add("hidden")
     document.querySelector("#SignUp").classList.remove("hidden")
     },
-
+    signupUserAccount : function(){
+        console.log("I Clicked")
+        //username_Field_SignUp     
+        //password_Field_SignUp
+        //Conf_password_Field_SignUp
+        let signupUser = document.querySelector("#username_Field_SignUp").value
+        let SignupPass = document.querySelector("#password_Field_SignUp").value
+        let SignupPassConf = document.querySelector("#Conf_password_Field_SignUp").value
+        if ((SignupPass && SignupPassConf) == false){
+            alert("Passwords Dont Match");
+        } else{
+            sendData("createUser.php",[signupUser,SignupPass]);
+        }
+    },
+    updateLeaderboard : function(){
+        //Unfinished???
+        let lb = document.querySelector("#leaderboard");
+        lb.innerHTML = "<table><tr><th>Name</th><th>Score</th></tr>";
+        lb.innerHTML += this.dataReturned + "</table>";
+    },
 }
