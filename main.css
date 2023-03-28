@@ -44,7 +44,7 @@ body{
 }
 
 .hidden{
-    display:none;
+    display:none !important;
 }
 
 a{
@@ -79,8 +79,49 @@ a{
     grid-column: span 2;
     text-align: center;
 }
-.header{
+header{
     background-color: lightblue;
+    display: GRID;
+    grid-template-columns: 1fr 1fr;
+}
+.green{
+    background-color: green;
+}
+.red{
+    background-color: red;
+}
+#letters{
     display: grid;
-    grid-template-columns: 1fr;
+}
+h2{
+    float:left;
+}
+footer{
+    background-color: darkgray;
+    position: sticky;
+    bottom:0;
+    width: 100%;
+}
+#gameDiv{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#buttons{
+    grid-column: span 3;
+    display:grid;
+    grid-template-columns: repeat(13, 1fr);
+}
+#buttons button{
+    width: 100%;
+    padding: 10%;
+}
+#usernameField{
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-right: 10px;
+}
+#leaderboard{
+    overflow-y:scroll;
 }
