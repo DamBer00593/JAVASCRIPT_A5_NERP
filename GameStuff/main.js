@@ -48,7 +48,6 @@ const gameController = {
         let cats = document.querySelectorAll("#categoryButtons *");
         for (let i=0; i<cats.length; i++)
             document.querySelector("#" + cats[i].id).addEventListener("click", el => {this.buildGame(el.target.id)})
-
     },
     setCategory : function(cat){
         console.log (this.fileData)
@@ -100,7 +99,9 @@ const gameController = {
     },
     changeLetter : function(indexes){
         //This changes the letter in blanks based off the indexes
+
         this.score += indexes.length;
+
         for(let i = 0; i<indexes.length; i++)
             this.blanks[indexes[i]] = this.letter
         this.makeWord()
