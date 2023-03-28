@@ -1,5 +1,6 @@
 window.onload = function(){
-    gameController.buildGame();
+    gameController.setGetWordList();
+    gameController.makeCatButtons();
 }
 
 ///
@@ -13,10 +14,12 @@ const gameController = {
     letter : "",
     lives : 6,
     wordList : [],
-    buildGame : function(){
+    score : 0,
+    buildGame : function(cat){
         //This function is run at the start of the program to begin a game
-        this.setGetWordList();
-        this.setCategory("countries");
+        document.querySelector("#categoryButtons").classList.add("hidden");
+        document.querySelector("#gameDiv").classList.remove("hidden");
+        this.setCategory(cat)
         this.setWord();
         this.buildLetterButtons();
         this.makeButtonEvents();
@@ -36,6 +39,16 @@ const gameController = {
         }
         xhr.open("GET", url, false);
         xhr.send();
+    },
+    makeCatButtons : function(){
+        cat = document.querySelector("#categoryButtons")
+        for (let i=0; i< this.fileData.length; i++){
+            cat.innerHTML += "<button id = \"cat" + this.fileData[i].categoryName + "\" value = \"" + this.fileData[i].categoryName + "\">" + this.fileData[i].categoryName + "</button>";
+        }
+        let cats = document.querySelectorAll("#categoryButtons *");
+        for (let i=0; i<cats.length; i++)
+            document.querySelector("#" + cats[i].id).addEventListener("click", el => {this.buildGame(el.target.id)})
+
     },
     setCategory : function(cat){
         console.log (this.fileData)
@@ -72,22 +85,22 @@ const gameController = {
         let indexes = [];
         for (let i = 0; i < this.word.length; i++)
             if (this.letter == String(this.word[i]).toUpperCase()) indexes.push(i);
-            if (indexes.length != 0){
-                this.changeLetter(indexes);
-                el.target.classList.add("green");
-                console.log(el)
-            } 
-            else{
-                this.lives -= 1;
-                if (this.lives < 0)
-                    this.lives = 0;
-                console.log(el)
-                el.target.classList.add("red");
-            }
+        if (indexes.length != 0){
+            this.changeLetter(indexes);
+            el.target.classList.add("green");
+            el.target.disabled = true;
+        } 
+        else{
+            this.lives -= 1;
+            if (this.lives < 0)this.lives = 0;
+            el.target.classList.add("red");
+            el.target.disabled = true;
+        } 
         this.gameState();
     },
     changeLetter : function(indexes){
         //This changes the letter in blanks based off the indexes
+        this.score += indexes.length;
         for(let i = 0; i<indexes.length; i++)
             this.blanks[indexes[i]] = this.letter
         this.makeWord()
@@ -104,14 +117,6 @@ const gameController = {
     gameState : function(){
         if (!(this.blanks.includes("_"))) this.winGame();   
         if (this.lives <= 0) this.loseGame();
-        if (this.lives == 6) {
-            
-        }
-        else{
-            
-            document.querySelector("#Lives" + (this.lives+1)).classList.add("hidden")
-            document.querySelector("#Lives" + this.lives).classList.remove("hidden")
-        }
     },
     winGame : function() {
         //TODO What happens end of game when you win
@@ -123,6 +128,9 @@ const gameController = {
     },
     gameEnd : function(){
         //TODO what happens end of game regardless of result
+    },
+    setScore : function(){
+        this.score += this.lives - 6;
     }
 }
 
@@ -145,7 +153,7 @@ const serverStuff = {
                 this.dataReturned = xhr.responseText;                     
             }
         }
-        xhr.open("GET", url+"?"+args, false);
+        xhr.open("GET", url+"?"+args, true);
         xhr.send();        
     }
 
