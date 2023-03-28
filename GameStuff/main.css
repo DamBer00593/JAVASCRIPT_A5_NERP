@@ -9,3 +9,46 @@ h2{
 #letters{
     display: grid;
 }
+.hidden{
+    display:none !important;
+}
+.green{
+    background-color: green;
+}
+.red{
+    background-color: red;
+}
+header{
+    background-color: lightblue;
+    display: GRID;
+    grid-template-columns: 1fr 1fr;
+}
+body{
+    margin: 0;
+}
+footer{
+    background-color: darkgray;
+    position: absolute;
+    bottom:0;
+    width: 100%;
+}
+#gameDiv{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#buttons{
+    grid-column: span 3;
+    display:grid;
+    grid-template-columns: repeat(13, 1fr);
+}
+button{
+    width: 100%;
+    padding: 10%;
+}
+#usernameField{
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-right: 10px;
+}
