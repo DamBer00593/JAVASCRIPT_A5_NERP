@@ -80,6 +80,7 @@ const gameController = {
         let indexes = [];
         for (let i = 0; i < this.word.length; i++)
             if (this.letter == String(this.word[i]).toUpperCase()) indexes.push(i);
+
         if (indexes.length != 0){
             this.changeLetter(indexes);
             el.target.classList.add("green");
@@ -89,6 +90,8 @@ const gameController = {
             if (this.lives < 0)this.lives = 0;
             el.target.classList.add("red");
         } 
+
+
         this.gameState();
     },
     changeLetter : function(indexes){
@@ -110,6 +113,14 @@ const gameController = {
     gameState : function(){
         if (!(this.blanks.includes("_"))) this.winGame();   
         if (this.lives <= 0) this.loseGame();
+        if (this.lives == 6) {
+            
+        }
+        else{
+            
+            document.querySelector("#Lives" + (this.lives+1)).classList.add("hidden")
+            document.querySelector("#Lives" + this.lives).classList.remove("hidden")
+        }
     },
     winGame : function() {
         //TODO What happens end of game when you win
@@ -146,7 +157,7 @@ const serverStuff = {
                 this.dataReturned = xhr.responseText;                     
             }
         }
-        xhr.open("GET", url+"?"+args, true);
+        xhr.open("GET", url+"?"+args, false);
         xhr.send();        
     }
 

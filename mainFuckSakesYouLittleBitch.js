@@ -17,7 +17,7 @@ const serverStuff = {
             alert("Passwords Dont Match");
         } else{
             serverStuff.sendData("createUser.php",[signupUser,SignupPass]);
-            console.log(serverStuff.dataReturned)
+            pageEvents.logState = Number(serverStuff.dataReturned);
             switch (pageEvents.logState){
                 case 0:
                     break;
@@ -25,7 +25,7 @@ const serverStuff = {
                     pageEvents.userName = signupUser;
                     break;
                 case 3:
-                    alert(user + " already exists");
+                    alert(signupUser + " already exists");
                     break;
             }
         }
