@@ -1,21 +1,9 @@
 <?php
+include 'dbConn.php';
 $UserName = $_GET["A"];
 $UserPassword = $_GET["B"];
 
-
-//echo $UserName . $UserPassword . "\n";
-//Database Connection
- 
-$servername = "localhost:3306";
-$username = "rolandre_HangmanCreds";
-$password = "UwUPassword";
-$dbname = "rolandre_LIGHTGAMING_A5Hangman";
-
-# connect to the database
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-die("Connection failed: " . $conn->connect_error);
-}
+$conn = openCon();
 
 # execute a query and output its results
 $sql = "SELECT * FROM UserData where UserName = \"$UserName\"";
@@ -43,8 +31,6 @@ else
     }
 }
 
-$conn->close();
-
-//Expected password: "SuperSecure"
+CloseCon($conn);
 ?>
 
