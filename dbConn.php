@@ -1,10 +1,10 @@
 <?php
 function OpenCon()
  {
-    $servername = "localhost:3306";
-    $username = "rolandre_HangmanCreds";
-    $password = "UwUPassword";
-    $dbname = "rolandre_LIGHTGAMING_A5Hangman";
+    $servername = "ExampleServerName";
+    $username = "ExampleUsername";
+    $password = "ExamplePassword";
+    $dbname = "ExampleDatabaseName";
     $conn = new mysqli($servername, $username, $password, $dbname) or die("Connect failed: %s\n". $conn -> error); 
  return $conn;
  }
